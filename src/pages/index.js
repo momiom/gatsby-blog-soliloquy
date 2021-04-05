@@ -1,26 +1,52 @@
-import React from 'react'
+import React from "react"
+import { graphql, Link } from "gatsby"
 import tw from 'twin.macro'
-import { Button, Logo, Layout } from './../components'
 
-const styles = {
-  // Move long class sets out of jsx to keep it scannable
-  container: ({ hasBackground }) => [
-    tw`flex flex-col items-center justify-center h-screen`,
-    hasBackground && tw`bg-gradient-to-b from-electric to-ribbon`,
-  ],
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+import Img from "gatsby-image"
+
+const IndexPage = ({ data }) => {
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <ul>
+        {data.allMicrocmsPosts.edges.map(({ node }) => (
+          <li key={node.id}>
+            {node.featuredImg && (
+              <Img
+                fixed={node.featuredImg.childImageSharp.fixed}
+                alt={node.title}
+                fadeIn={true}
+              />
+            )}
+            
+            <Link to={`/blog/${node.id}`}>{node.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </Layout>
+  )
 }
 
-const IndexPage = () => (
-  <Layout>
-    <div css={styles.container({ hasBackground: true })}>
-      <div tw="flex flex-col justify-center h-full gap-y-5">
-        <Button variant="primary">Submit</Button>
-        <Button variant="secondary">Cancel</Button>
-        <Button isSmall>Close</Button>
-      </div>
-      <Logo />
-    </div>
-  </Layout>
-)
-
 export default IndexPage
+
+export const query = graphql`
+  query IndexPage {
+    allMicrocmsPosts(sort: {fields: revisedAt, order: DESC}) {
+      edges {
+        node {
+          title
+          id
+          featuredImg {
+            childImageSharp {
+              fixed(width: 600) {
+                ...GatsbyImageSharpFixed_withWebp
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
