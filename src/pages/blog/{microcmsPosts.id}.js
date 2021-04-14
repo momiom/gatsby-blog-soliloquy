@@ -40,19 +40,7 @@ export const query = graphql`
       title
       publishedAt
       revisedAt
-      featuredImg {
-        childImageSharp {
-          fixed(width: 400) {
-            ...GatsbyImageSharpFixed_withWebp
-          }
-        }
-      }
       body
-      fields {
-        images {
-          url
-        }
-      }
     }
   }
 `

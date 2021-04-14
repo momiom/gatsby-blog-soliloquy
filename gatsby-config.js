@@ -17,7 +17,14 @@ module.exports = {
     },
   },
   plugins: [
-    // `gatsby-plugin-image`,
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'MicrocmsPosts',
+        imagePath: 'featuredImage.url',
+      },
+    },
+    `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

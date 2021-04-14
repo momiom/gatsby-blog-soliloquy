@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Img from "gatsby-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const IndexPage = ({ data }) => {
   return (
@@ -12,11 +12,10 @@ const IndexPage = ({ data }) => {
       <ul>
         {data.allMicrocmsPosts.edges.map(({ node }) => (
           <li key={node.id}>
-            {node.featuredImg && (
-              <Img
-                fixed={node.featuredImg.childImageSharp.fixed}
+            {node.localImage && (
+              <GatsbyImage
+                image={getImage(node.localImage)}
                 alt={node.title}
-                fadeIn={true}
               />
             )}
             
@@ -37,11 +36,13 @@ export const query = graphql`
         node {
           title
           id
-          featuredImg {
+          localImage {
             childImageSharp {
-              fixed(width: 600) {
-                ...GatsbyImageSharpFixed_withWebp
-              }
+              gatsbyImageData(
+                width: 600
+                placeholder: TRACED_SVG
+                formats: [AUTO, WEBP]
+              )
             }
           }
         }

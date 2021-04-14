@@ -26,24 +26,6 @@ exports.onCreateNode = async ({
   createNodeId,
 }) => {
   if (node.internal.type === "MicrocmsPosts") {
-    // アイキャッチ画像を node にする
-    if ('featuredImage' in node && node.featuredImage) {
-      let fileNode = await createRemoteFileNode({
-        url: node.featuredImage.image.url,
-        parentNodeId: node.id,
-        createNode,
-        createNodeId,
-        cache,
-        store,
-        reporter
-      })
-
-      // if the file was created, attach the new node to the parent node
-      if (fileNode) {
-        node.featuredImg = fileNode.id
-      }
-    }
-
     // 本文中の画像を node にする
     if ('body' in node && node.body) {
       const $ = cheerio.load(node.body)
@@ -134,4 +116,4 @@ function fetchData(url, { apiKey, query }) {
     const body = await res.json();
     return { body, statusCode: res.status };
   });
-};
+}

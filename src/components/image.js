@@ -1,29 +1,28 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const Image = ({ src, alt = "", Tag = 'div'}) => {
   const { allMicrocmsPosts } = useStaticQuery(allImages)
 
-  let imageFixed = {}
+  let childImageSharp = {}
   allMicrocmsPosts.edges.forEach(
     ({node}) => {
       'images' in node.fields && node.fields.images.forEach(
         (image) => {
           if ('url' in image && image.url === src) {
-            imageFixed = image.localFile.childImageSharp.fixed
+            childImageSharp = image.localFile.childImageSharp
           }
         }
       )
     }
   )
 
-  const result = imageFixed
+  const result = childImageSharp
   ? (
-      <Img 
-        fixed={imageFixed}
+      <GatsbyImage 
+        image={getImage(childImageSharp)}
         alt={alt}
-        Tag={Tag}
       />
     )
   : (
@@ -46,9 +45,11 @@ const allImages = graphql`
               url
               localFile {
                 childImageSharp {
-                  fixed(width: 400){
-                    ...GatsbyImageSharpFixed_withWebp
-                  }
+                  gatsbyImageData(
+                    width: 400
+                    placeholder: DOMINANT_COLOR
+                    formats: [AUTO, WEBP]
+                  )
                 }
               }
             }
