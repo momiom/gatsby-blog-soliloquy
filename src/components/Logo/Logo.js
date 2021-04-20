@@ -9,7 +9,7 @@ const LogoSvg = ({ active }) => (
     x="0px"
     y="0px"
     viewBox="0 0 1133.86 1133.86"
-    tw="absolute top-0 left-0 w-full h-full"
+    tw="w-full h-full"
     className={active ? 'active' : ''}
   >
     <g id="レイヤー_4">
@@ -166,7 +166,7 @@ const LogoSvg = ({ active }) => (
   </svg>
 )
 
-const StyledLogoSvg = tw(LogoSvg)`absolute top-0 left-0 w-full h-full`
+const StyledLogoSvg = tw(LogoSvg)`w-full h-full`
 
 const Logo = () => {
   const [active, setActive] = useState(false)
