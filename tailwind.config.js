@@ -1,9 +1,17 @@
 module.exports = {
   theme: {
     extend: {
-      colors: {
-        electric: '#db00ff',
-        ribbon: '#0047ff',
+      fontSize: {
+        base: ['18px', '24px'],
+      },
+      gridTemplateRows: {
+       'layout': '200px 1fr 32px',
+      },
+      gridTemplateColumns: {
+       'index-contents': '2.6fr 1fr',
+      },
+      textColor: {
+        'light-black': 'rgba(0, 0, 0, 0.82)'
       },
     },
   },
