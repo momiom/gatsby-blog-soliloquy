@@ -11,11 +11,11 @@ import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
 function SEO({ description, lang, meta, title }) {
-  const { metadata } = useStaticQuery(
+  const { microcmsMetadata } = useStaticQuery(
     graphql`
       query {
-        metadata {
-          title
+        microcmsMetadata {
+          name
           description
           author
         }
@@ -23,8 +23,8 @@ function SEO({ description, lang, meta, title }) {
     `
   )
 
-  const metaDescription = description || metadata.description
-  const defaultTitle = metadata.title
+  const metaDescription = description || microcmsMetadata.description
+  const defaultTitle = microcmsMetadata.name
 
   return (
     <Helmet
@@ -56,7 +56,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:creator`,
-          content: metadata.author || ``,
+          content: microcmsMetadata.author || ``,
         },
         {
           name: `twitter:title`,

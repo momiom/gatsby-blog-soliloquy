@@ -1,11 +1,40 @@
 const fetch = require('node-fetch')
 const qs = require('querystring')
+const fs = require('fs')
 const cheerio = require('cheerio')
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
-});
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+exports.onPreInit = async ({ actions, store }) => {
+  const { setPluginStatus } = actions
+  const state = store.getState()
+
+  const plugin = state.flattenedPlugins.find(
+    plugin => plugin.name === 'gatsby-plugin-manifest',
+  )
+  if (plugin) {
+    const { statusCode, body } = await fetchSiteMetaData()
+
+    if (statusCode !== 200) {
+      reporter.panic(
+        `microCMS API ERROR: URL: ${url}, statusCode: ${statusCode}, message: ${body.message}`,
+      )
+      return
+    }
+
+    const { name, short_name, icon } = body
+    saveIconImage(icon.url)
+
+    plugin.pluginOptions = {
+      ...plugin.pluginOptions,
+      ...{ name, short_name },
+    }
+    setPluginStatus({ pluginOptions: plugin.pluginOptions }, plugin)
+  }
+}
 
 exports.createSchemaCustomization = async ({ actions }) => {
   const { createTypes } = actions
@@ -25,7 +54,7 @@ exports.onCreateNode = async ({
   reporter,
   createNodeId,
 }) => {
-  if (node.internal.type === "MicrocmsPosts") {
+  if (node.internal.type === 'MicrocmsPosts') {
     // 本文中の画像を node にする
     if ('body' in node && node.body) {
       const $ = cheerio.load(node.body)
@@ -45,17 +74,17 @@ exports.onCreateNode = async ({
             cache,
             createNode,
             createNodeId,
-            reporter
-          })
-        )
+            reporter,
+          }),
+        ),
       )
 
       await createNodeField({
         node,
-        name: "images",
+        name: 'images',
         value: images,
       })
-      
+
       node.fields.images.forEach((image, i) => {
         image.localFile___NODE = images[i].id
       })
@@ -63,57 +92,52 @@ exports.onCreateNode = async ({
   }
 }
 
-exports.sourceNodes = async ({ 
-  actions,
-  createNodeId,
-  createContentDigest,
-  reporter 
-}) => {
-  const url = 'https://momio.microcms.io/api/v1/metadata'
-  const apiKey = process.env.API_KEY
-  const query = ''
+let lastResponse = {}
+let lastReqUrl = ''
 
-  const { statusCode, body } = await fetchData(url, { apiKey, query })
-  if (statusCode !== 200) {
-    reporter.panic(`microCMS API ERROR:
-URL: ${url}
-statusCode: ${statusCode}
-message: ${body.message}`)
-    return
-  }
-
-  const { title, description, author } = body
-
-  const node = {
-    title,
-    description,
-    author,
-    id: createNodeId(`Metadata`),
-    internal: {
-      type: "Metadata",
-      contentDigest: createContentDigest(title + description),
-    },
-  }
-  actions.createNode(node)
-}
-
-function fetchData(url, { apiKey, query }) {
-  // remove empty string or undefined or null query
+function fetchSiteMetaData(
+  url = 'https://momio.microcms.io/api/v1/metadata',
+  { apiKey = process.env.API_KEY, query = '' } = {},
+) {
   for (let q in query) {
     if (!query[q]) {
-      delete query[q];
+      delete query[q]
     }
   }
 
-  const params = qs.stringify(query);
-  const reqUrl = url + (params ? `?${params}` : '');
+  const params = qs.stringify(query)
+  const reqUrl = url + (params ? `?${params}` : '')
 
-  return fetch(reqUrl, {
-    headers: {
-      'x-api-key': apiKey,
-    },
-  }).then(async res => {
-    const body = await res.json();
-    return { body, statusCode: res.status };
-  });
+  if (lastReqUrl === reqUrl && lastResponse === 200) {
+    return LastResponse
+  }
+  lastReqUrl = reqUrl
+
+  let response = {}
+  for (let retry = 0; retry < 3; retry++) {
+    response = fetch(reqUrl, {
+      headers: {
+        'x-api-key': apiKey,
+      },
+    }).then(async res => {
+      const body = await res.json()
+      return { statusCode: res.status, body }
+    })
+
+    if (response.statusCode === 200) {
+      break
+    }
+  }
+  lastResponse = response
+
+  return response
+}
+
+function saveIconImage(url) {
+  fetch(url).then(async res => {
+    const data = await res.buffer()
+    fs.writeFile(`${__dirname}/src/images/icon.png`, data, err => {
+      if (err) throw err
+    })
+  })
 }

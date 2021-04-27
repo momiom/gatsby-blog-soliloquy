@@ -1,7 +1,7 @@
-const path = require('path');
+const path = require('path')
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
-});
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 module.exports = {
   siteMetadata: {
@@ -55,13 +55,17 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-emotion`,
     {
-      resolve: "gatsby-source-microcms",
+      resolve: 'gatsby-source-microcms',
       options: {
         apiKey: process.env.API_KEY,
         serviceId: process.env.SERVICE_ID,
         apis: [
           {
-            endpoint: "posts",
+            endpoint: 'posts',
+          },
+          {
+            endpoint: 'metadata',
+            format: 'object',
           },
         ],
       },
