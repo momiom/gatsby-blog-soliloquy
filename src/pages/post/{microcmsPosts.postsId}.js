@@ -34,9 +34,9 @@ const BlogPage = ({ data }) => {
 export default BlogPage
 
 export const query = graphql`
-  query($id: String!) {
-    microcmsPosts(id: { eq: $id }) {
-      id
+  query($postsId: String!) {
+    microcmsPosts(postsId: { eq: $postsId }) {
+      postsId
       title
       publishedAt
       revisedAt

@@ -1,2 +1,2 @@
-export { default as Logo } from './Logo/Logo'
-export { default as Layout } from './Layout'
+export { default as PostList } from './Card/PostList'
+export { default as ProfileCard } from './Card/ProfileCard'

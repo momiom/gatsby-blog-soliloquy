@@ -1,28 +1,19 @@
-import React from "react"
-import { graphql, Link } from "gatsby"
-
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import React from 'react'
+import { graphql } from 'gatsby'
+import 'twin.macro'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+import { PostList, ProfileCard } from '../components'
 
 const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <ul>
-        {data.allMicrocmsPosts.edges.map(({ node }) => (
-          <li key={node.id}>
-            {node.localImage && (
-              <GatsbyImage
-                image={getImage(node.localImage)}
-                alt={node.title}
-              />
-            )}
-            
-            <Link to={`/blog/${node.id}`}>{node.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <div tw="grid sm:grid-cols-index-contents gap-12">
+        <PostList edges={data.allMicrocmsPosts.edges} />
+
+        <ProfileCard bio="abc" />
+      </div>
     </Layout>
   )
 }
@@ -31,11 +22,11 @@ export default IndexPage
 
 export const query = graphql`
   query IndexPage {
-    allMicrocmsPosts(sort: {fields: revisedAt, order: DESC}) {
+    allMicrocmsPosts(sort: { fields: revisedAt, order: DESC }) {
       edges {
         node {
+          postsId
           title
-          id
           localImage {
             childImageSharp {
               gatsbyImageData(
@@ -45,6 +36,7 @@ export const query = graphql`
               )
             }
           }
+          createdAt
         }
       }
     }
