@@ -8,7 +8,7 @@ const LogoSvg = ({ active }) => (
     xmlns="http://www.w3.org/2000/svg"
     x="0px"
     y="0px"
-    viewBox="0 0 1133.86 1133.86"
+    viewBox="200 200 600 600"
     tw="w-full h-full"
     className={active ? 'active' : ''}
   >
@@ -166,8 +166,6 @@ const LogoSvg = ({ active }) => (
   </svg>
 )
 
-const StyledLogoSvg = tw(LogoSvg)`w-full h-full`
-
 const Logo = () => {
   const [active, setActive] = useState(false)
 
@@ -179,7 +177,7 @@ const Logo = () => {
     return () => {clearTimeout(timerId)}
   }) 
 
-  return <StyledLogoSvg active={active} />
+  return <LogoSvg active={active} />
 }
 
 export default Logo
