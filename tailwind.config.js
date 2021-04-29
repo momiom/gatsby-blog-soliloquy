@@ -1,5 +1,9 @@
 module.exports = {
   theme: {
+    backgroundColor: theme => ({
+      ...theme('colors'),
+      'main': '#EDF2F7',
+     }),
     extend: {
       fontSize: {
         base: ['18px', '24px'],
