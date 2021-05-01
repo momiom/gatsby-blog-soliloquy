@@ -3,7 +3,7 @@ import 'twin.macro'
 
 const Card = ({ children }) => {
   return (
-    <article tw="bg-white shadow rounded-lg overflow-hidden max-w-sm">
+    <article tw="bg-white shadow rounded-lg overflow-hidden w-full">
       { children }
     </article>
   )

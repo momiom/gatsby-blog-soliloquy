@@ -4,7 +4,7 @@ import Header from './Header/Header'
 import Footer from './Footer'
 
 const Layout = ({ children, ...rest }) => (
-  <div {...rest} tw="min-h-screen grid grid-rows-layout bg-main">
+  <div {...rest} tw="min-h-screen bg-main grid grid-rows-layout">
     <GlobalStyles />
     <Header />
     {children}

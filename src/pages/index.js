@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import 'twin.macro'
+import tw, { css } from 'twin.macro'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { PostList, ProfileCard } from '../components'
@@ -9,7 +9,9 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <div tw="grid sm:grid-cols-index-contents gap-12">
+      <div
+        tw="grid md:grid-cols-index-contents gap-12 justify-items-center px-3 lg:px-index-width"
+      >
         <PostList edges={data.allMicrocmsPosts.edges} />
 
         <ProfileCard bio="abc" />
@@ -31,7 +33,7 @@ export const query = graphql`
             childImageSharp {
               gatsbyImageData(
                 width: 600
-                placeholder: TRACED_SVG
+                placeholder: DOMINANT_COLOR
                 formats: [AUTO, WEBP]
               )
             }

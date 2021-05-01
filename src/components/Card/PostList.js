@@ -5,12 +5,12 @@ import PostCard from './PostCard'
 
 const CardList = ({ edges }) => {
   return (
-  <div tw="grid sm:grid-cols-2 grid-cols-1 gap-4 max-w-max">
+  <div tw="grid grid-cols-1 lg:grid-cols-2 gap-4">
     {edges.map(({ node }) => (
       <PostCard
         key={node.title}
         title={node.title}
-        date={node.date}
+        createdAt={node.createdAt}
         imageData={node.localImage}
         alt={node.title}
         href={`/post/${node.postsId}`}
