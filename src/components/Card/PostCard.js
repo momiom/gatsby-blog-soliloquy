@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import 'twin.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSync } from '@fortawesome/free-solid-svg-icons'
 import dayjs from 'dayjs'
 import Card from './Card'
 
 const PostCard = ({ title, createdAt, imageData, alt, href }) => {
-  const date = dayjs(createdAt).format('YYYY/MM/DD')
+  const date = dayjs(createdAt).format('YYYY-MM-DD')
   return (
     <Card>
       <Link to={href} tw="flex flex-col h-full">
@@ -18,11 +20,13 @@ const PostCard = ({ title, createdAt, imageData, alt, href }) => {
             tw="w-full h-full object-cover object-center absolute top-0"
           />
         </figure>
-        <div tw="flex flex-col p-3 h-full">
-          <h2 tw="text-base text-light-black">{title}</h2>
-          <div tw="mt-auto pt-3">
-            <p tw="text-xs">{date}</p>
+        <div tw="flex flex-col p-4 h-full">
+          <div>
+            <p tw="text-xs text-gray-600">
+              <FontAwesomeIcon icon={faSync} tw="text-gray-500" /> {date}
+            </p>
           </div>
+          <h2 tw="pt-3 text-base text-light-black">{title}</h2>
         </div>
       </Link>
     </Card>
