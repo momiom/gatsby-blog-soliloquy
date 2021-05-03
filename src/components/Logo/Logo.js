@@ -1,4 +1,4 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState, useEffect } from 'react'
 import tw from 'twin.macro'
 import './Logo.css'
 
@@ -172,10 +172,12 @@ const Logo = () => {
   useEffect(() => {
     const timerId = setTimeout(() => {
       setActive(true)
-    }, 1000);
+    }, 600)
 
-    return () => {clearTimeout(timerId)}
-  }) 
+    return () => {
+      clearTimeout(timerId)
+    }
+  })
 
   return <LogoSvg active={active} />
 }
