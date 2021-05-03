@@ -6,10 +6,10 @@ module.exports = {
     }),
     extend: {
       fontSize: {
-        base: ['18px', '24px'],
+        base: ['16px', '24px'],
       },
       gridTemplateRows: {
-        layout: '200px 1fr 32px',
+        layout: '200px 1fr 50px',
       },
       gridTemplateColumns: {
         'index-contents': '2fr 1fr',

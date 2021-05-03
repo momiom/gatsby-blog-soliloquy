@@ -9,12 +9,12 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <div
-        tw="grid md:grid-cols-index-contents gap-12 justify-items-center px-3 lg:px-index-width"
-      >
+      <div tw="grid md:grid-cols-index-contents gap-12 justify-items-center px-3 lg:px-index-width">
         <PostList edges={data.allMicrocmsPosts.edges} />
 
-        <ProfileCard bio="abc" />
+        <div>
+          <ProfileCard data={data.microcmsProfile} />
+        </div>
       </div>
     </Layout>
   )
@@ -32,13 +32,31 @@ export const query = graphql`
           localImage {
             childImageSharp {
               gatsbyImageData(
-                width: 600
+                layout: FULL_WIDTH
                 placeholder: DOMINANT_COLOR
                 formats: [AUTO, WEBP]
               )
             }
           }
           createdAt
+        }
+      }
+    }
+    microcmsProfile {
+      name
+      description
+      sns {
+        name
+        link
+        service_name
+      }
+      localImage {
+        childImageSharp {
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: DOMINANT_COLOR
+            formats: [AUTO, WEBP]
+          )
         }
       }
     }

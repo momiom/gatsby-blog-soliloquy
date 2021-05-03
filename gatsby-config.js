@@ -24,6 +24,13 @@ module.exports = {
         imagePath: 'featuredImage.url',
       },
     },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'MicrocmsProfile',
+        imagePath: 'icon.url',
+      },
+    },
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -67,6 +74,10 @@ module.exports = {
             endpoint: 'metadata',
             format: 'object',
           },
+          {
+            endpoint: 'profile',
+            format: 'object',
+          }
         ],
       },
     },
