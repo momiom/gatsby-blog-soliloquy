@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import tw, { css } from 'twin.macro'
+import tw from 'twin.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
@@ -10,12 +9,11 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import Card from './Card'
 
 const SnsField = ({ data, styles }) => {
-  const snsIcons = []
-  data.map(v => {
+  const snsIcons = data.map(v => {
     const { link, service_name } = v
     switch (service_name[0]) {
       case 'Twitter':
-        snsIcons.push(
+        return (
           <li key={link}>
             <a
               href={link}
@@ -25,11 +23,10 @@ const SnsField = ({ data, styles }) => {
             >
               <FontAwesomeIcon icon={faTwitter} />
             </a>
-          </li>,
+          </li>
         )
-        break
       case 'Instagram':
-        snsIcons.push(
+        return (
           <li key={link}>
             <a
               href={link}
@@ -39,11 +36,10 @@ const SnsField = ({ data, styles }) => {
             >
               <FontAwesomeIcon icon={faInstagram} />
             </a>
-          </li>,
+          </li>
         )
-        break
       case 'Mail':
-        snsIcons.push(
+        return (
           <li key={link}>
             <a
               href={`mailto:${link}?subject=お問い合わせ内容を簡単にご記入ください&amp;body=お問い合わせありがとうございます。お問い合わせ内容の詳細をご記入ください。`}
@@ -53,11 +49,10 @@ const SnsField = ({ data, styles }) => {
             >
               <FontAwesomeIcon icon={faEnvelope} />
             </a>
-          </li>,
+          </li>
         )
-        break
       default:
-        break
+        return <></>
     }
   })
   return (

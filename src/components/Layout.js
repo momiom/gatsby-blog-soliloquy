@@ -1,5 +1,5 @@
 import React from 'react'
-import tw, { GlobalStyles } from 'twin.macro'
+import { GlobalStyles } from 'twin.macro'
 import Header from './Header/Header'
 import Footer from './Footer'
 

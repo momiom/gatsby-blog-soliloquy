@@ -1,31 +1,24 @@
-import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import 'twin.macro'
 
-const Image = ({ src, alt = "", Tag = 'div'}) => {
+const Image = ({ src, alt = '', tag = 'span' }) => {
   const { allMicrocmsPosts } = useStaticQuery(allImages)
 
   let childImageSharp = {}
-  allMicrocmsPosts.edges.forEach(
-    ({node}) => {
-      'images' in node.fields && node.fields.images.forEach(
-        (image) => {
-          if ('url' in image && image.url === src) {
-            childImageSharp = image.localFile.childImageSharp
-          }
+  allMicrocmsPosts.edges.forEach(({ node }) => {
+    'images' in node.fields &&
+      node.fields.images.forEach(image => {
+        if ('url' in image && image.url === src) {
+          childImageSharp = image.localFile.childImageSharp
         }
-      )
-    }
-  )
+      })
+  })
 
-  const result = childImageSharp
-  ? (
-      <GatsbyImage 
-        image={getImage(childImageSharp)}
-        alt={alt}
-      />
-    )
-  : (
+  const result = childImageSharp ? (
+    <GatsbyImage image={getImage(childImageSharp)} alt={alt} as={tag} tw="w-full" />
+  ) : (
     <img src={src} alt={alt} />
   )
 
@@ -33,7 +26,6 @@ const Image = ({ src, alt = "", Tag = 'div'}) => {
 }
 
 export default Image
-
 
 const allImages = graphql`
   query {
@@ -46,7 +38,7 @@ const allImages = graphql`
               localFile {
                 childImageSharp {
                   gatsbyImageData(
-                    width: 400
+                    layout: FULL_WIDTH
                     placeholder: DOMINANT_COLOR
                     formats: [AUTO, WEBP]
                   )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
+import 'twin.macro'
 import './Logo.css'
 
 const LogoSvg = ({ active }) => (
