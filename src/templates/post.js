@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Layout, SEO, Image } from '../components'
+import { Layout, Image } from '../components'
 import parse from 'html-react-parser';
 
 const replaceCode = elm => {
@@ -16,8 +16,7 @@ const replaceCode = elm => {
 
 const BlogPage = ({ data }) => {
   return (
-    <Layout>
-      <SEO title={data.microcmsPosts.title} />
+    <Layout seo={{title: data.microcmsPosts.title}}>
       <span>投稿日：{data.microcmsPosts.publishedAt}</span>
       <span>更新日：{data.microcmsPosts.revisedAt}</span>
       <h1>{data.microcmsPosts.title}</h1>

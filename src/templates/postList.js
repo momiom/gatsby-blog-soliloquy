@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import 'twin.macro'
-import { Layout, SEO, PostList, ProfileCard } from '../components'
+import { Layout, PostList, ProfileCard } from '../components'
 
 const IndexPage = ({ data, pageContext }) => {
   const { currentPage, numPages } = pageContext
@@ -12,8 +12,7 @@ const IndexPage = ({ data, pageContext }) => {
   const nextPage = `/page/${(currentPage + 1).toString()}`
 
   return (
-    <Layout>
-      <SEO title="Home" />
+    <Layout seo={{title: 'Home'}}>
       <div tw="grid md:grid-cols-index-contents gap-12 justify-items-center px-3 lg:px-index-width">
         <main tw="w-full">
           <PostList edges={data.allMicrocmsPosts.edges} />
