@@ -10,6 +10,7 @@ import Card from './Card'
 
 const PostCard = ({ title, createdAt, imageData, alt, href }) => {
   const date = dayjs(createdAt).format('YYYY-MM-DD')
+  
   return (
     <Card>
       <Link to={href} tw="flex flex-col h-full">

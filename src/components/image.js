@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image'
 import 'twin.macro'
 
 const Image = ({ src, alt = '', tag = 'span' }) => {
@@ -17,7 +17,14 @@ const Image = ({ src, alt = '', tag = 'span' }) => {
   })
 
   const result = childImageSharp ? (
-    <GatsbyImage image={getImage(childImageSharp)} alt={alt} as={tag} tw="w-full" />
+    <a href={getSrc(childImageSharp)}>
+      <GatsbyImage
+        image={getImage(childImageSharp)}
+        alt={alt}
+        as={tag}
+        tw="w-full"
+      />
+    </a>
   ) : (
     <img src={src} alt={alt} />
   )
@@ -38,7 +45,6 @@ const allImages = graphql`
               localFile {
                 childImageSharp {
                   gatsbyImageData(
-                    layout: FULL_WIDTH
                     placeholder: DOMINANT_COLOR
                     formats: [AUTO, WEBP]
                   )
