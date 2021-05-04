@@ -1,10 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-
-import Layout from "../../components/layout"
-import SEO from "../../components/seo"
-
-import Image from "../../components/image"
+import { Layout, SEO, Image } from '../components'
 import parse from 'html-react-parser';
 
 const replaceCode = elm => {
@@ -13,7 +9,6 @@ const replaceCode = elm => {
      <Image
       src={elm.attribs.src}
       alt={elm.attribs.alt}
-      Tag='span'
     />
    )
   }

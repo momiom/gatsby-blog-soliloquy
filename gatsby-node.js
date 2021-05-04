@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const path = require(`path`)
 const qs = require('querystring')
 const fs = require('fs')
 const cheerio = require('cheerio')
@@ -7,6 +8,74 @@ const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
+
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  return graphql(
+    `
+      {
+        allMicrocmsPosts(sort: { fields: revisedAt, order: DESC }) {
+          edges {
+            node {
+              postsId
+              title
+              localImage {
+                childImageSharp {
+                  gatsbyImageData(
+                    layout: FULL_WIDTH
+                    placeholder: DOMINANT_COLOR
+                    formats: [AUTO, WEBP]
+                  )
+                }
+              }
+              createdAt
+            }
+          }
+        }
+      }
+    `,
+  ).then(result => {
+    if (result.errors) {
+      throw result.errors
+    }
+
+    // 記事ページ作成
+    const posts = result.data.allMicrocmsPosts.edges
+
+    posts.forEach((post, index) => {
+      const previous = index === posts.length - 1 ? null : posts[index + 1].node
+      const next = index === 0 ? null : posts[index - 1].node
+
+      createPage({
+        path: `/post/${post.node.postsId}`,
+        component: path.resolve(`./src/templates/post.js`),
+        context: {
+          postsId: post.node.postsId,
+          previous,
+          next,
+        },
+      })
+
+      // 記事一覧作成
+      const postsPerPage = 2
+      const numPages = Math.ceil(posts.length / postsPerPage)
+
+      Array.from({ length: numPages }).forEach((_, i) => {
+        createPage({
+          path: i === 0 ? `/` : `/page/${i + 1}`,
+          component: path.resolve('./src/templates/postList.js'),
+          context: {
+            limit: postsPerPage,
+            skip: i * postsPerPage,
+            numPages,
+            currentPage: i + 1,
+          },
+        })
+      })
+    })
+  })
+}
 
 exports.onPreInit = async ({ actions, store }) => {
   const { setPluginStatus } = actions
