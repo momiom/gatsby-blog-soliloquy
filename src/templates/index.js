@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import 'twin.macro'
-import { Layout, PostList, ProfileCard } from '../components'
+import { Layout, PostList } from '../components'
 
 const IndexPage = ({ data, pageContext }) => {
   const { currentPage, numPages } = pageContext
@@ -12,29 +12,21 @@ const IndexPage = ({ data, pageContext }) => {
   const nextPage = `/page/${(currentPage + 1).toString()}`
 
   return (
-    <Layout seo={{title: 'Home'}}>
-      <div tw="grid md:grid-cols-index-contents gap-12 justify-items-center px-3 lg:px-index-width">
-        <main tw="w-full">
-          <PostList edges={data.allMicrocmsPosts.edges} />
+    <Layout seo={{ title: 'Home' }}>
+      <PostList edges={data.allMicrocmsPosts.edges} />
 
-          <div tw="flex justify-between">
-            {!isFirst && (
-              <Link to={prevPage} rel="prev">
-                ← Previous Page
-              </Link>
-            )}
+      <div tw="flex justify-between">
+        {!isFirst && (
+          <Link to={prevPage} rel="prev">
+            ← Previous Page
+          </Link>
+        )}
 
-            {!isLast && (
-              <Link to={nextPage} rel="next">
-                Next Page →
-              </Link>
-            )}
-          </div>
-        </main>
-
-        <div>
-          <ProfileCard data={data.microcmsProfile} />
-        </div>
+        {!isLast && (
+          <Link to={nextPage} rel="next">
+            Next Page →
+          </Link>
+        )}
       </div>
     </Layout>
   )
@@ -62,25 +54,7 @@ export const query = graphql`
               )
             }
           }
-          createdAt
-        }
-      }
-    }
-    microcmsProfile {
-      name
-      description
-      sns {
-        name
-        link
-        service_name
-      }
-      localImage {
-        childImageSharp {
-          gatsbyImageData(
-            layout: FULL_WIDTH
-            placeholder: DOMINANT_COLOR
-            formats: [AUTO, WEBP]
-          )
+          publishedAt
         }
       }
     }

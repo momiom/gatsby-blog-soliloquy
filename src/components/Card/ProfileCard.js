@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { graphql, useStaticQuery } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import tw from 'twin.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,8 +10,7 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import Card from './Card'
 
 const SnsField = ({ data, styles }) => {
-  const snsIcons = data.map(v => {
-    const { link, service_name } = v
+  const snsIcons = data.map(({ link, service_name }) => {
     switch (service_name[0]) {
       case 'Twitter':
         return (
@@ -62,10 +62,32 @@ const SnsField = ({ data, styles }) => {
   )
 }
 
-const ProfileCard = ({ data }) => {
-  const { name, description, localImage, sns } = data
+const ProfileCard = () => {
+  const data = useStaticQuery(graphql`
+    {
+      microcmsProfile {
+        name
+        description
+        sns {
+          name
+          link
+          service_name
+        }
+        localImage {
+          childImageSharp {
+            gatsbyImageData(
+              layout: FULL_WIDTH
+              placeholder: DOMINANT_COLOR
+              formats: [AUTO, WEBP]
+            )
+          }
+        }
+      }
+    }
+  `)
+  const { name, description, localImage, sns } = data.microcmsProfile
   return (
-    <Card styles={tw`p-3.5 flex flex-col items-center`}>
+    <Card styles={tw`p-3.5 flex flex-col items-center sticky top-6`}>
       <figure>
         <GatsbyImage
           image={getImage(localImage)}

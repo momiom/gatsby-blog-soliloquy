@@ -49,7 +49,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       createPage({
         path: `/post/${post.node.postsId}`,
-        component: path.resolve(`./src/templates/post.js`),
+        component: path.resolve(`./src/templates/post/post.js`),
         context: {
           postsId: post.node.postsId,
           previous,

@@ -1,11 +1,12 @@
 import React from 'react'
 import 'twin.macro'
 
-const Card = ({ children, styles }) => {
+const Card = ({ children, styles, ...rest }) => {
   return (
     <article
       tw="bg-white shadow rounded-lg overflow-hidden w-full"
       css={styles}
+      {...rest}
     >
       {children}
     </article>

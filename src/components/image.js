@@ -6,20 +6,20 @@ import 'twin.macro'
 const Image = ({ src, alt = '', tag = 'span' }) => {
   const { allMicrocmsPosts } = useStaticQuery(allImages)
 
-  let childImageSharp = {}
+  let imageData = {}
   allMicrocmsPosts.edges.forEach(({ node }) => {
     'images' in node.fields &&
       node.fields.images.forEach(image => {
         if ('url' in image && image.url === src) {
-          childImageSharp = image.localFile.childImageSharp
+          imageData = {childImageSharp: image.localFile.childImageSharp, src}
         }
       })
   })
 
-  const result = childImageSharp ? (
-    <a href={getSrc(childImageSharp)}>
+  const result = imageData.childImageSharp ? (
+    <a href={src} className="image-wrapper">
       <GatsbyImage
-        image={getImage(childImageSharp)}
+        image={getImage(imageData.childImageSharp)}
         alt={alt}
         as={tag}
         tw="w-full"

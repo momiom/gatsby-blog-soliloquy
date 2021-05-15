@@ -2,19 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import 'twin.macro'
+import { css } from 'twin.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSync } from '@fortawesome/free-solid-svg-icons'
 import dayjs from 'dayjs'
 import Card from './Card'
 
-const PostCard = ({ title, createdAt, imageData, alt, href }) => {
-  const date = dayjs(createdAt).format('YYYY-MM-DD')
-  
+const PostCard = ({ title, publishedAt, imageData, alt, href }) => {
+  const date = dayjs(publishedAt).format('YYYY-MM-DD')
+
   return (
     <Card>
       <Link to={href} tw="flex flex-col h-full">
-        <figure tw="w-full pt-ogp-height relative">
+        <figure
+          tw="w-full relative"
+          css={css`
+            padding-top: calc(630 / 1200 * 100%);
+          `}
+        >
           <GatsbyImage
             image={getImage(imageData)}
             alt={alt}
