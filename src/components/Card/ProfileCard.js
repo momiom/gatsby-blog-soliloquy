@@ -92,7 +92,7 @@ const ProfileCard = () => {
         <GatsbyImage
           image={getImage(localImage)}
           alt={name}
-          tw="w-24 h-24 rounded-full object-cover object-center"
+          tw="w-24 h-24 rounded-full object-cover object-center z-10"
         />
       </figure>
       <h2 tw="pt-2.5 text-light-black text-2xl font-bold tracking-wider">
