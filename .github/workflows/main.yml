@@ -41,7 +41,7 @@ jobs:
 #       run: npm run test
 
     - name: build
-      run: yarn build
+      run: yarn build-prefix-paths
 
     - name: deploy
       uses: peaceiris/actions-gh-pages@v3

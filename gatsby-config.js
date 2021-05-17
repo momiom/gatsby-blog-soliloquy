@@ -4,6 +4,7 @@ require('dotenv').config({
 })
 
 module.exports = {
+  pathPrefix: `/gatsby-blog-soliloquy`,
   siteMetadata: {
     title: `Soliloquy ひとりごと`,
     author: {
