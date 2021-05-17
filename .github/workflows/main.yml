@@ -16,9 +16,6 @@ jobs:
 
     - name: setup node
       uses: actions/setup-node@v1
-      env:
-        API_KEY: ${{secrets.API_KEY}}
-        SERVICE_ID: ${{secrets.SERVICE_ID}}
       with:
         node-version: '12.x'
 
@@ -40,6 +37,9 @@ jobs:
 #       run: npm run test
 
     - name: build
+      env:
+        API_KEY: ${{secrets.API_KEY}}
+        SERVICE_ID: ${{secrets.SERVICE_ID}}
       run: yarn build
 
     - name: deploy
