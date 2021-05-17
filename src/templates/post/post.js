@@ -47,11 +47,9 @@ const replaceCode = elm => {
             const fileName = split[2] ? split[2] : ''
 
             return (
-              <div>
                 <pre tw="whitespace-pre-line">
                   <code className={`language-${langType}`}>{`${code}`}</code>
                 </pre>
-              </div>
             )
           } else {
             return
