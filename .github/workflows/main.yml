@@ -8,10 +8,6 @@ on:
     branches:
       - master
 
-env:
-  API_KEY: ${{secrets.API_KEY}}
-  SERVICE_ID: ${{secrets.SERVICE_ID}}
-
 jobs:
   build-deploy:
     runs-on: ubuntu-18.04
@@ -20,6 +16,9 @@ jobs:
 
     - name: setup node
       uses: actions/setup-node@v1
+      env:
+        API_KEY: ${{secrets.API_KEY}}
+        SERVICE_ID: ${{secrets.SERVICE_ID}}
       with:
         node-version: '12.x'
 
