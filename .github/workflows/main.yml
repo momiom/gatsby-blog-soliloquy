@@ -2,15 +2,11 @@ name: github pages
 
 on:
   workflow_dispatch:
-    branches:
-      - master
+#     branches:
+#       - master
   push:
     branches:
       - master
-
-env:
-  API_KEY: ${{secrets.API_KEY}}
-  SERVICE_ID: ${{secrets.SERVICE_ID}}
 
 jobs:
   build-deploy:
@@ -41,6 +37,9 @@ jobs:
 #       run: npm run test
 
     - name: build
+      env:
+        API_KEY: ${{secrets.API_KEY}}
+        SERVICE_ID: ${{secrets.SERVICE_ID}}
       run: yarn build-prefix-paths
 
     - name: deploy
