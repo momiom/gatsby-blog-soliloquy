@@ -15,7 +15,7 @@ const Layout = ({ children, seo = { title: '' }, ...rest } = {}) => {
         <SEO title={title} />
         <Header />
 
-        <div tw="grid xl:grid-cols-index-contents gap-12 justify-items-center px-3 md:px-index-width">
+        <div tw="grid lg:grid-cols-index-contents gap-12 justify-items-center px-3 sm:px-24 lg:px-8 xl:px-index-width">
           <main tw="w-full">{children}</main>
 
           <div>
