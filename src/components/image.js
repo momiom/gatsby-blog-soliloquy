@@ -3,7 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image'
 import 'twin.macro'
 
-const Image = ({ src, alt = '', tag = 'span' }) => {
+const Image = ({ src, alt = '', tag = 'div', ...rest }) => {
   const { allMicrocmsPosts } = useStaticQuery(allImages)
 
   let imageData = {}
@@ -11,22 +11,21 @@ const Image = ({ src, alt = '', tag = 'span' }) => {
     'images' in node.fields &&
       node.fields.images.forEach(image => {
         if ('url' in image && image.url === src) {
-          imageData = {childImageSharp: image.localFile.childImageSharp, src}
+          imageData = { childImageSharp: image.localFile.childImageSharp, src }
         }
       })
   })
 
   const result = imageData.childImageSharp ? (
-    <a href={src} className="image-wrapper">
-      <GatsbyImage
-        image={getImage(imageData.childImageSharp)}
-        alt={alt}
-        as={tag}
-        tw="w-full"
-      />
-    </a>
+    <GatsbyImage
+      image={getImage(imageData.childImageSharp)}
+      alt={alt}
+      as={tag}
+      tw="w-full"
+      {...rest}
+    />
   ) : (
-    <img src={src} alt={alt} />
+    <img src={src} alt={alt} {...rest} />
   )
 
   return result

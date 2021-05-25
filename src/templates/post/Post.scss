@@ -73,16 +73,30 @@
     overflow: scroll;
   }
   & pre > code {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
-  & .image-wrapper {
+  & .full-size-image-link {
     display: block;
     padding: 2vw;
     & .gatsby-image-wrapper {
       background-color: rgba(255, 255, 255, 1);
       box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 3px 0 rgba(0, 0, 0, 0.1),
         0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  & .iframe-wrapper {
+    width: 100%;
+    position: relative;
+    padding-top: calc(630 / 1200 * 100%);
+
+    & iframe {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
     }
   }
 }

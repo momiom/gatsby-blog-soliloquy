@@ -18,15 +18,35 @@ const replaceCode = elm => {
       )
 
     case 'iframe':
-      const { width, height, ...attribs } = elm.attribs
+      console.group('replaceCode iframe')
+      const { width, height, ...rawAttr } = elm.attribs
+
+      // 正しい props 名に変換
+      const className = rawAttr['class']
+      const frameBorder = rawAttr['frameborder']
+      const allowFullScreen = rawAttr['allowfullscreen'] === 'true'
+
+      let attribs = Object.keys(rawAttr)
+        .filter(attr => attr !== 'class')
+        .filter(attr => attr !== 'frameborder')
+        .filter(attr => attr !== 'allowfullscreen')
+        .reduce((result, key) => {
+          result[key] = rawAttr[key]
+          return result
+        }, {})
+
+      attribs = {
+        ...attribs,
+        className,
+        frameBorder,
+        allowFullScreen,
+      }
+
+      console.log(elm)
+      console.groupEnd()
       return (
-        <div
-          tw="w-full relative"
-          css={css`
-            padding-top: calc(630 / 1200 * 100%);
-          `}
-        >
-          <iframe tw="absolute top-0 w-full h-full p-4" {...attribs}></iframe>
+        <div className="iframe-wrapper">
+          <iframe {...attribs}></iframe>
         </div>
       )
 
@@ -47,9 +67,9 @@ const replaceCode = elm => {
             const fileName = split[2] ? split[2] : ''
 
             return (
-                <pre tw="whitespace-pre-line">
-                  <code className={`language-${langType}`}>{`${code}`}</code>
-                </pre>
+              <pre tw="whitespace-pre-line">
+                <code className={`language-${langType}`}>{`${code}`}</code>
+              </pre>
             )
           } else {
             return

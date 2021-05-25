@@ -77,8 +77,11 @@ exports.createPages = ({ graphql, actions }) => {
   })
 }
 
-exports.onPreInit = async ({ actions, store }) => {
-  const { setPluginStatus } = actions
+exports.onPreInit = async ({
+  actions: { setPluginStatus },
+  store,
+  reporter,
+}) => {
   const state = store.getState()
 
   const plugin = state.flattenedPlugins.find(

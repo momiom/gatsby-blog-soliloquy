@@ -12,6 +12,7 @@
     "build-prefix-paths": "gatsby build --prefix-paths",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "clearn_build_serve": "gatsby clean && gatsby build && gatsby serve",
     "test": "jest",
     "storybook": "start-storybook -s ./public  -p 6006",
     "build-storybook": "build-storybook"
