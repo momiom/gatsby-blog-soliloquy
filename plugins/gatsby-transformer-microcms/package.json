@@ -1,4 +1,10 @@
 {
+  "name": "gatsby-transformer-microcms",
+  "private": true,
+  "description": "gatsby-transformer-microcms",
+  "version": "0.0.1",
+  "author": "Reika Nakayama",
+  "license": "MIT",  
   "dependencies": {
     "rehype-parse": "^7.0.1",
     "rehype-stringify": "^8.0.0",

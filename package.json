@@ -38,6 +38,7 @@
     "gatsby-plugin-sharp": "^3.6.0",
     "gatsby-source-filesystem": "^3.6.0",
     "gatsby-source-microcms": "^1.1.0",
+    "gatsby-transformer-microcms": "./plugins/gatsby-transformer-microcms",
     "gatsby-transformer-sharp": "^3.6.0",
     "html-react-parser": "^1.2.6",
     "node-sass": "^5.0.0",
