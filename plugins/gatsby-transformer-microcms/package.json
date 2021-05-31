@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "rehype-parse": "^7.0.1",
+    "rehype-stringify": "^8.0.0",
+    "unified": "^9.2.1"
+  }
+}

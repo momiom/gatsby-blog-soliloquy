@@ -83,5 +83,6 @@ module.exports = {
         ],
       },
     },
+    `gatsby-transformer-microcms`
   ],
 }

@@ -16,66 +16,6 @@ const replaceCode = elm => {
       return (
         elm.attribs.src && <Image src={elm.attribs.src} alt={elm.attribs.alt} />
       )
-
-    case 'iframe':
-      console.group('replaceCode iframe')
-      const { width, height, ...rawAttr } = elm.attribs
-
-      // 正しい props 名に変換
-      const className = rawAttr['class']
-      const frameBorder = rawAttr['frameborder']
-      const allowFullScreen = rawAttr['allowfullscreen'] === 'true'
-
-      let attribs = Object.keys(rawAttr)
-        .filter(attr => attr !== 'class')
-        .filter(attr => attr !== 'frameborder')
-        .filter(attr => attr !== 'allowfullscreen')
-        .reduce((result, key) => {
-          result[key] = rawAttr[key]
-          return result
-        }, {})
-
-      attribs = {
-        ...attribs,
-        className,
-        frameBorder,
-        allowFullScreen,
-      }
-
-      console.log(elm)
-      console.groupEnd()
-      return (
-        <div className="iframe-wrapper">
-          <iframe {...attribs}></iframe>
-        </div>
-      )
-
-    case 'pre':
-      if (elm.children.length === 1 && elm.children[0].name === 'code') {
-        const codeElm = elm.children[0]
-        const planeCode = codeElm.children[0].data
-
-        // １行目にはコード情報が ":言語タイプ:ファイル名" のように書かれている
-        // 例えば ":js:script.js" のように書かれているので言語タイプ部分の "js" を取り出す
-        if (planeCode.split('\n').length > 0) {
-          const firstLine = planeCode.split('\n')[0]
-          const code = planeCode.split('\n').slice(1).join('\n')
-
-          if (firstLine.split(':').length > 1) {
-            const split = firstLine.split(':')
-            const langType = split[1]
-            const fileName = split[2] ? split[2] : ''
-
-            return (
-              <pre tw="whitespace-pre-line">
-                <code className={`language-${langType}`}>{`${code}`}</code>
-              </pre>
-            )
-          } else {
-            return
-          }
-        }
-      }
   }
 }
 
@@ -84,10 +24,10 @@ const BlogPage = ({ data }) => {
     Prism.highlightAll()
   })
 
-  const { localImage, title, publishedAt, revisedAt, body } = data.microcmsPosts
+  const { localImage, title, publishedAt, revisedAt, childProcessedBody } = data.microcmsPosts
 
   const publishedDate = dayjs(publishedAt).format('YYYY-MM-DD')
-  const jsxBody = parse(body, { replace: replaceCode })
+  const jsxBody = parse(childProcessedBody.body, { replace: replaceCode })
   const imageData = getImage(localImage)
 
   return (
@@ -113,6 +53,7 @@ const BlogPage = ({ data }) => {
               <time tw="text-sm pt-3.5">{publishedDate}</time>
             </div>
             <section tw="pt-12">{jsxBody}</section>
+            {/* <section tw="pt-12" dangerouslySetInnerHTML={{__html: body}}></section> */}
           </section>
         </section>
       </Card>
@@ -138,7 +79,9 @@ export const query = graphql`
       title
       publishedAt
       revisedAt
-      body
+      childProcessedBody {
+        body
+      }
     }
   }
 `

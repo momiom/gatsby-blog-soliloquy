@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "build",
+			"detail": "gatsby build"
+		},
+		{
+			"type": "npm",
+			"script": "clean",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "clean",
+			"detail": "gatsby clean"
+		}
+	]
+}

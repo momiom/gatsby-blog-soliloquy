@@ -17,13 +17,15 @@ const Image = ({ src, alt = '', tag = 'div', ...rest }) => {
   })
 
   const result = imageData.childImageSharp ? (
-    <GatsbyImage
-      image={getImage(imageData.childImageSharp)}
-      alt={alt}
-      as={tag}
-      tw="w-full"
-      {...rest}
-    />
+    <a href={src} className="full-size-image-link">
+      <GatsbyImage
+        image={getImage(imageData.childImageSharp)}
+        alt={alt}
+        as={tag}
+        tw="w-full"
+        {...rest}
+      />
+    </a>
   ) : (
     <img src={src} alt={alt} {...rest} />
   )
