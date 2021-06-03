@@ -33,6 +33,9 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        microcmsMetadata {
+          post_list_length
+        }
       }
     `,
   ).then(result => {
@@ -42,6 +45,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     // 記事ページ作成
     const posts = result.data.allMicrocmsPosts.edges
+    const postsPerPage = result.data.microcmsMetadata.post_list_length ?? 5
 
     posts.forEach((post, index) => {
       const previous = index === posts.length - 1 ? null : posts[index + 1].node
@@ -58,7 +62,6 @@ exports.createPages = ({ graphql, actions }) => {
       })
 
       // 記事一覧作成
-      const postsPerPage = 2
       const numPages = Math.ceil(posts.length / postsPerPage)
 
       Array.from({ length: numPages }).forEach((_, i) => {
