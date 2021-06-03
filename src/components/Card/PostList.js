@@ -10,7 +10,7 @@ const CardList = ({ edges }) => {
         <PostCard
           key={node.title}
           title={node.title}
-          createdAt={node.createdAt}
+          publishedAt={node.publishedAt}
           imageData={node.localImage}
           alt={node.title}
           href={`/post/${node.postsId}`}
