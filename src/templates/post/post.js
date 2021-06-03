@@ -47,7 +47,7 @@ const BlogPage = ({ data }) => {
             />
           </figure>
 
-          <section tw="pt-11 px-3 sm:px-8 text-light-black">
+          <section tw="pt-11 pb-5 sm:pb-6 px-3 sm:px-8 text-light-black">
             <h1 tw="text-center">{title}</h1>
             <div tw="text-center">
               <time tw="text-sm pt-3.5">{publishedDate}</time>
