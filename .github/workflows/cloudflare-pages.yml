@@ -44,10 +44,10 @@ jobs:
       run: yarn build
 
     - name: deploy
-    run: |
-      git config --local user.email "kazuki.k.bl8+github.momio@gmail.com"
-      git config --local user.name "momiom"
-      git checkout cloudflare-pages
-      git merge master
-      git commit --allow-empty -m "Deploy cloudflare pages."
-      git push origin cloudflare-pages
+      run: |
+        git config --local user.email "kazuki.k.bl8+github.momio@gmail.com"
+        git config --local user.name "momiom"
+        git checkout cloudflare-pages
+        git merge master
+        git commit --allow-empty -m "Deploy cloudflare pages."
+        git push origin cloudflare-pages
