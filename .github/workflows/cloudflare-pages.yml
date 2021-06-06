@@ -1,4 +1,4 @@
-name: github pages
+name: cloudflare pages
 
 on:
   workflow_dispatch:
