@@ -45,7 +45,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     // 記事ページ作成
     const posts = result.data.allMicrocmsPosts.edges
-    const postsPerPage = result.data.microcmsMetadata.post_list_length ?? 5
+    const postsPerPage = result.data.microcmsMetadata.post_list_length ? result.data.microcmsMetadata.post_list_length : 5
 
     posts.forEach((post, index) => {
       const previous = index === posts.length - 1 ? null : posts[index + 1].node
