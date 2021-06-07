@@ -14,35 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: setup node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-
-    - name: Cache dependencies
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-
-    - name: install
-      run: yarn
-
-#     - name: format
-#       run: npm run format
-
-#     - name: test
-#       run: npm run test
-
-    - name: build
-      env:
-        API_KEY: ${{secrets.API_KEY}}
-        SERVICE_ID: ${{secrets.SERVICE_ID}}
-#       run: yarn build-prefix-paths
-      run: yarn build
-
     - name: deploy
       run: |
         git config --local user.email "kazuki.k.bl8+github.momio@gmail.com"
