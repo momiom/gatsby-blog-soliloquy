@@ -21,4 +21,4 @@ jobs:
         git checkout cloudflare-pages
         git merge master
         git commit --allow-empty -m "Deploy cloudflare pages."
-        git push origin cloudflare-pages
+        git push
