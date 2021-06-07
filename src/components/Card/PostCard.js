@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { css } from 'twin.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSync } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import dayjs from 'dayjs'
 import Card from './Card'
 
@@ -29,7 +29,7 @@ const PostCard = ({ title, publishedAt, imageData, alt, href }) => {
         <div tw="flex flex-col p-4 h-full">
           <div>
             <p tw="text-xs text-gray-600">
-              <FontAwesomeIcon icon={faSync} tw="text-gray-500" /> {date}
+              <FontAwesomeIcon icon={faCheck} tw="text-gray-500" /> {date}
             </p>
           </div>
           <h2 tw="pt-3 text-base text-light-black">{title}</h2>
