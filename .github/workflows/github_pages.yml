@@ -1,0 +1,38 @@
+name: github pages
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: Cache dependencies
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: install
+      run: yarn
+
+    - name: build_deploy
+      uses: enriikke/gatsby-gh-pages-action@v2
+      env:
+        API_KEY: ${{secrets.API_KEY}}
+        SERVICE_ID: ${{secrets.SERVICE_ID}}
+      with:
+        access-token: ${{ secrets.ACCESS_TOKEN }}
