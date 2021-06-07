@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { css } from 'twin.macro'
+import tw, { css } from 'twin.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import dayjs from 'dayjs'
@@ -10,6 +10,7 @@ import Card from './Card'
 
 const PostCard = ({ title, publishedAt, imageData, alt, href }) => {
   const date = dayjs(publishedAt).format('YYYY-MM-DD')
+  const imgWrapperStyle = tw`w-full h-full object-cover object-center absolute top-0`
 
   return (
     <Card>
@@ -23,7 +24,7 @@ const PostCard = ({ title, publishedAt, imageData, alt, href }) => {
           <GatsbyImage
             image={getImage(imageData)}
             alt={alt}
-            tw="w-full h-full object-cover object-center absolute top-0"
+            style={imgWrapperStyle}
           />
         </figure>
         <div tw="flex flex-col p-4 h-full">

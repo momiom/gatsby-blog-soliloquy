@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import parse from 'html-react-parser'
-import { css } from 'twin.macro'
+import tw, { css } from 'twin.macro'
 import dayjs from 'dayjs'
 import Prism from 'prismjs'
 
@@ -30,6 +30,9 @@ const BlogPage = ({ data }) => {
   const jsxBody = parse(childProcessedBody.body, { replace: replaceCode })
   const imageData = getImage(localImage)
 
+  const imgWrapperStyle = tw`w-full h-full object-cover object-center absolute top-0`
+  const imgStyle = tw`rounded-t-lg overflow-hidden`
+
   return (
     <Layout seo={{ title }}>
       <Card id="post-content">
@@ -41,10 +44,11 @@ const BlogPage = ({ data }) => {
             `}
           >
             <GatsbyImage
-              image={getImage(imageData)}
-              alt={title}
-              tw="w-full h-full object-cover object-center absolute top-0"
-            />
+            image={getImage(imageData)}
+            alt={title}
+            style={imgWrapperStyle}
+            imgStyle={imgStyle}
+          />
           </figure>
 
           <section tw="pt-11 pb-5 sm:pb-6 px-3 sm:px-8 text-light-black">
