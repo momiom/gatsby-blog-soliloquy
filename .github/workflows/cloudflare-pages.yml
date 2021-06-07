@@ -1,6 +1,8 @@
 name: cloudflare pages
 
 on:
+  repository_dispatch:
+    types: [update_post]
   workflow_dispatch:
 #     branches:
 #       - master
