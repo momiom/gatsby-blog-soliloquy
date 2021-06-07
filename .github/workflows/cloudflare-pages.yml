@@ -23,6 +23,6 @@ jobs:
       run: |
         git config --local user.email "kazuki.k.bl8+github.momio@gmail.com"
         git config --local user.name "momiom"
-        git merge master
+        git merge main
         git commit --allow-empty -m "Deploy cloudflare pages."
         git push
