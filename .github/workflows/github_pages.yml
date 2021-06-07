@@ -1,4 +1,4 @@
-name: github pages
+name: github pages with gatsby-gh-pages-action
 
 on:
   workflow_dispatch:
@@ -36,3 +36,5 @@ jobs:
         SERVICE_ID: ${{secrets.SERVICE_ID}}
       with:
         access-token: ${{ secrets.ACCESS_TOKEN }}
+        deploy-branch: gh-pages
+        gatsby-args: --prefix-paths
