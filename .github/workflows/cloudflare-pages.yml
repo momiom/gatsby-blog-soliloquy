@@ -12,13 +12,15 @@ jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
+    - name: checkout branch
+      uses: actions/checkout@v2
+      with:
+        ref: cloudflare-pages
 
     - name: deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config --local user.email "kazuki.k.bl8+github.momio@gmail.com"
         git config --local user.name "momiom"
-        git checkout cloudflare-pages
-        git merge master
-        git commit --allow-empty -m "Deploy cloudflare pages."
-        git push
+        git branch -a
