@@ -1,6 +1,8 @@
 name: github pages with gatsby-gh-pages-action
 
 on:
+  repository_dispatch:
+    types: [update_microcms]
   workflow_dispatch:
 
   push:
