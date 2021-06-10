@@ -30,6 +30,7 @@
     "dayjs": "^1.10.4",
     "gatsby": "^3.6.1",
     "gatsby-plugin-emotion": "^6.6.0",
+    "gatsby-plugin-google-gtag": "^3.7.1",
     "gatsby-plugin-image": "^1.6.0",
     "gatsby-plugin-manifest": "^3.6.0",
     "gatsby-plugin-react-helmet": "^4.6.0",

@@ -83,6 +83,17 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ['G-E3T71BT14E'],
+        gtagConfig: {},
+        pluginConfig: {
+          head: true,
+          exclude: [],
+        },
+      },
+    },
     `gatsby-transformer-microcms`
   ],
 }
