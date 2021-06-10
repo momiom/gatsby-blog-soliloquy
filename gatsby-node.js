@@ -77,6 +77,12 @@ exports.createPages = ({ graphql, actions }) => {
         })
       })
     })
+
+    createPage({
+      path: `/post/draft`,
+      component: path.resolve(`./src/templates/post/draft.js`),
+      context: {},
+    })
   })
 }
 
