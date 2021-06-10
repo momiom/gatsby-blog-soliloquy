@@ -13,9 +13,27 @@ import './Prism.css'
 const replaceCode = elm => {
   switch (elm.name) {
     case 'img':
+      if (!elm.attribs.src || elm.parent.name === 'a') {
+        return
+      }
+
       return (
-        elm.attribs.src && <Image src={elm.attribs.src} alt={elm.attribs.alt} />
+        <a href={elm.attribs.src} className="image-link">
+          <Image src={elm.attribs.src} alt={elm.attribs.alt} />
+        </a>
       )
+
+    case 'a':
+      if (elm.firstChild.name === 'img') {
+        return (
+          <a className="image-link" {...elm.attribs}>
+            <Image
+              src={elm.firstChild.attribs.src}
+              alt={elm.firstChild.attribs.alt}
+            />
+          </a>
+        )
+      }
   }
 }
 
@@ -24,7 +42,13 @@ const BlogPage = ({ data }) => {
     Prism.highlightAll()
   })
 
-  const { localImage, title, publishedAt, revisedAt, childProcessedBody } = data.microcmsPosts
+  const {
+    localImage,
+    title,
+    publishedAt,
+    revisedAt,
+    childProcessedBody,
+  } = data.microcmsPosts
 
   const publishedDate = dayjs(publishedAt).format('YYYY-MM-DD')
   const jsxBody = parse(childProcessedBody.body, { replace: replaceCode })
@@ -44,11 +68,11 @@ const BlogPage = ({ data }) => {
             `}
           >
             <GatsbyImage
-            image={getImage(imageData)}
-            alt={title}
-            style={imgWrapperStyle}
-            imgStyle={imgStyle}
-          />
+              image={imageData}
+              alt={title}
+              style={imgWrapperStyle}
+              imgStyle={imgStyle}
+            />
           </figure>
 
           <section tw="pt-11 pb-5 sm:pb-6 px-3 sm:px-8 text-light-black">
@@ -57,7 +81,6 @@ const BlogPage = ({ data }) => {
               <time tw="text-sm pt-3.5">{publishedDate}</time>
             </div>
             <section tw="pt-12">{jsxBody}</section>
-            {/* <section tw="pt-12" dangerouslySetInnerHTML={{__html: body}}></section> */}
           </section>
         </section>
       </Card>

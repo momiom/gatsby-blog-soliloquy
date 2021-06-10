@@ -17,7 +17,6 @@ const Image = ({ src, alt = '', tag = 'div', ...rest }) => {
   })
 
   const result = imageData.childImageSharp ? (
-    <a href={src} className="full-size-image-link">
       <GatsbyImage
         image={getImage(imageData.childImageSharp)}
         alt={alt}
@@ -25,7 +24,6 @@ const Image = ({ src, alt = '', tag = 'div', ...rest }) => {
         tw="w-full"
         {...rest}
       />
-    </a>
   ) : (
     <img src={src} alt={alt} {...rest} />
   )
