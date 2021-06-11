@@ -1,0 +1,19 @@
+$base-color: #edf2f6;
+.not-found {
+  color: #edf2f6;
+  // text-shadow: 3px 3px 1px rgba(0,0,0,0.3);
+
+  // color: #fff;
+  text-shadow: 
+    0 -1px #ffffff,
+    0 1px darken($base-color, 5%), 
+    0 2px darken($base-color, 10%),
+    0 3px darken($base-color, 15%), 
+    0 4px darken($base-color, 20%),
+    0 5px darken($base-color, 25%),
+    0 6px darken($base-color, 30%),
+    0 7px darken($base-color, 35%), 
+    0 8px darken($base-color, 40%), 
+    0 9px darken($base-color, 45%),
+    0 10px 8px darken($base-color, 50%);
+}
